@@ -1,0 +1,2013 @@
+<!DOCTYPE html>
+<!-- saved from url=(0106)file:///C:/Users/mathu/Documents/SBCH%20Database/SBSCH%20Patient%20Database%20-%20Enhanced%20DeepSeek.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SBSCH Patient Database - Enhanced</title>
+    <script src="./index_files/tesseract.min.js.download"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #1565c0;
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: #1976d2;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1565c0;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(25, 118, 210, 0.4);
+        }
+
+        .btn-success {
+            background: #43a047;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #388e3c;
+        }
+
+        .btn-secondary {
+            background: #e0e0e0;
+            color: #333;
+        }
+
+        .btn-secondary:hover {
+            background: #d0d0d0;
+        }
+
+        .btn-danger {
+            background: #e53935;
+            color: white;
+        }
+
+        .btn-purple {
+            background: #7b1fa2;
+            color: white;
+        }
+
+        .btn-orange {
+            background: #f57c00;
+            color: white;
+        }
+
+        .btn-info {
+            background: #0288d1;
+            color: white;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #1976d2;
+            box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
+        }
+
+        .info-card {
+            background: #f5f5f5;
+            padding: 12px;
+            border-radius: 6px;
+        }
+
+        .info-card p:first-child {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 4px;
+        }
+
+        .info-card p:last-child {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .diagnosis-item {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .icd-search-results {
+            position: absolute;
+            width: 100%;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 1000;
+            margin-top: 4px;
+        }
+
+        .icd-item {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+        }
+
+        .icd-item:hover {
+            background: #e3f2fd;
+        }
+
+        .icd-item:last-child {
+            border-bottom: none;
+        }
+
+        .patient-list-item {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .patient-list-item:hover {
+            background: #e3f2fd;
+            transform: translateX(5px);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge-blue {
+            background: #bbdefb;
+            color: #1565c0;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .camera-view {
+            width: 100%;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            background: #000;
+        }
+
+        .loading {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loading.active {
+            display: flex;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #1976d2;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .flex-between {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            .btn, .no-print {
+                display: none !important;
+            }
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .alert-info {
+            background: #e3f2fd;
+            color: #1565c0;
+            border: 1px solid #90caf9;
+        }
+
+        .doc-item {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .section-divider {
+            border-top: 2px solid #e0e0e0;
+            margin: 30px 0;
+            padding-top: 20px;
+        }
+
+        .image-preview {
+            max-width: 200px;
+            max-height: 200px;
+            border-radius: 8px;
+            margin-top: 10px;
+            border: 2px solid #ddd;
+        }
+
+        .doc-upload-area {
+            background: #f9f9f9;
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .progress-text {
+            margin-top: 10px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .diagnosis-box {
+            background: #f9f9f9;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .diagnosis-input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            align-items: flex-end;
+        }
+
+        .diagnosis-input-group > div {
+            flex: 1;
+        }
+
+        textarea.form-control {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .extracted-text-box {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .extracted-text-content {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            max-height: 200px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+
+        .manual-entry-section {
+            background: #e8f5e9;
+            border: 2px solid #4caf50;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .image-text-container {
+            display: flex;
+            gap: 20px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+
+        .image-container {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .text-container {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        @media (max-width: 768px) {
+            .image-text-container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Home View -->
+        <div id="homeView" class="view">
+            <div class="card">
+                <div class="header">
+                    <h1>Sirimavo Bandaranaike Specialised Children's Hospital</h1>
+                    <p>Patient Database Management System</p>
+                    <p style="font-size: 14px; color: #888; margin-top: 5px;">Dr Mathula Hettiarachchi - Consultant Pediatric Surgeon</p>
+                </div>
+
+                <div class="grid-3">
+                    <button class="btn btn-primary" onclick="showNewPatient()" style="padding: 40px; font-size: 18px; flex-direction: column;">
+                        <span style="font-size: 48px;">➕</span>
+                        <div style="margin-top: 10px;">New Patient</div>
+                        <div style="font-size: 14px; font-weight: normal; opacity: 0.9;">Register a new patient</div>
+                    </button>
+                    <button class="btn btn-success" onclick="showSearch()" style="padding: 40px; font-size: 18px; flex-direction: column;">
+                        <span style="font-size: 48px;">🔍</span>
+                        <div style="margin-top: 10px;">Search Patients</div>
+                        <div style="font-size: 14px; font-weight: normal; opacity: 0.9;">Find patient records</div>
+                    </button>
+                    <button class="btn btn-info" onclick="exportDatabase()" style="padding: 40px; font-size: 18px; flex-direction: column;">
+                        <span style="font-size: 48px;">💾</span>
+                        <div style="margin-top: 10px;">Export Database</div>
+                        <div style="font-size: 14px; font-weight: normal; opacity: 0.9;">Download all patient data</div>
+                    </button>
+                </div>
+
+                <h3 style="margin-bottom: 15px; color: #333;">Recent Patients</h3>
+                <div id="recentPatients"><p style="text-align: center; color: #666; padding: 30px;">No patients registered yet</p></div>
+            </div>
+        </div>
+
+        <!-- New Patient View -->
+        <div id="newPatientView" class="view hidden">
+            <div class="card">
+                <h2 style="color: #1565c0; margin-bottom: 25px;">New Patient Registration</h2>
+                
+                <div class="alert alert-info">
+                    <strong>Patient ID:</strong> <span id="newPatientId">SBSCH311025342</span>
+                </div>
+
+                <div class="form-group">
+                    <label>Extract Demographics from Document Photo</label>
+                    <div class="btn-group">
+                        <button class="btn btn-primary" onclick="openCamera(&#39;demographics&#39;)">📷 Take Photo</button>
+                        <button class="btn btn-success" onclick="document.getElementById(&#39;demoUpload&#39;).click()">📤 Upload Image</button>
+                        <input type="file" id="demoUpload" accept="image/*" style="display: none;" onchange="handleDemoUpload(event)">
+                    </div>
+                    <div id="demoImagePreview"></div>
+                </div>
+
+                <!-- Extracted Text Section -->
+                <div id="extractedTextSection" class="hidden">
+                    <div class="extracted-text-box">
+                        <h4 style="color: #856404; margin-bottom: 10px;">📄 Extracted Text from Document</h4>
+                        <p style="color: #856404; font-size: 13px; margin-bottom: 10px;">Review the text below and manually enter any missing information into the form fields above.</p>
+                        <div class="extracted-text-content" id="extractedTextContent"></div>
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Full Name *</label>
+                        <input type="text" id="name" class="form-control" placeholder="Enter patient name">
+                    </div>
+                    <div class="form-group">
+                        <label>Date of Birth *</label>
+                        <input type="date" id="dob" class="form-control" onchange="calculateAge()">
+                    </div>
+                    <div class="form-group">
+                        <label>Age (auto-calculated)</label>
+                        <input type="text" id="age" class="form-control" placeholder="Auto-calculated" readonly="" style="background: #f5f5f5;">
+                    </div>
+                    <div class="form-group">
+                        <label>Sex</label>
+                        <select id="sex" class="form-control">
+                            <option value="">Select</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Current Weight (kg)</label>
+                        <input type="text" id="weight" class="form-control" placeholder="kg">
+                    </div>
+                    <div class="form-group">
+                        <label>Birth Weight (kg)</label>
+                        <input type="text" id="birthWeight" class="form-control" placeholder="kg">
+                    </div>
+                    <div class="form-group">
+                        <label>Gestation (weeks)</label>
+                        <input type="text" id="gestation" class="form-control" placeholder="weeks">
+                    </div>
+                    <div class="form-group">
+                        <label>Admission Type</label>
+                        <select id="admissionType" class="form-control">
+                            <option value="">Select</option>
+                            <option value="Requested">Requested</option>
+                            <option value="Urgent">Urgent</option>
+                            <option value="Acute">Acute</option>
+                            <option value="Neonatal">Neonatal</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Patient Type</label>
+                        <select id="patientType" class="form-control">
+                            <option value="Outpatient">Outpatient</option>
+                            <option value="Inpatient">Inpatient</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Date of Admission</label>
+                        <input type="date" id="dateAdmission" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Date of Discharge</label>
+                        <input type="date" id="dateDischarge" class="form-control">
+                    </div>
+                </div>
+
+                <!-- Diagnosis Section -->
+                <div class="diagnosis-box">
+                    <h3 style="margin-bottom: 15px; color: #333;">Diagnoses (Add up to 10)</h3>
+                    <p style="color: #666; font-size: 14px; margin-bottom: 15px;">You can search ICD-10 codes or enter free text diagnoses</p>
+                    
+                    <div class="form-group" style="position: relative;">
+                        <label>Search ICD-10 Code</label>
+                        <input type="text" id="icdSearch" class="form-control" placeholder="Search ICD-10 code or diagnosis..." oninput="searchICD(this.value)" onfocus="searchICD(this.value)">
+                        <div id="icdResults" class="icd-search-results hidden"></div>
+                    </div>
+
+                    <div style="text-align: center; margin: 20px 0; color: #999;">OR</div>
+
+                    <div class="form-group">
+                        <label>Enter Free Text Diagnosis</label>
+                        <div style="display: flex; gap: 10px;">
+                            <input type="text" id="freeTextDiagnosis" class="form-control" placeholder="Enter diagnosis description...">
+                            <button class="btn btn-primary" onclick="addFreeTextDiagnosis()">Add</button>
+                        </div>
+                    </div>
+
+                    <div id="selectedDiagnoses"></div>
+                    <div id="diagnosisCounter" style="text-align: right; color: #666; font-size: 14px; margin-top: 10px;">0 / 10 diagnoses added</div>
+                </div>
+
+                <!-- Document Upload Section -->
+                <div class="section-divider">
+                    <h3 style="color: #333; margin-bottom: 15px;">📄 Upload Medical Documents (Optional)</h3>
+                    <p style="color: #666; font-size: 14px; margin-bottom: 15px;">You can upload medical documents now, or add them later from the patient record.</p>
+                    
+                    <div class="doc-upload-area">
+                        <div class="form-group">
+                            <label>Document Type</label>
+                            <select id="newPatientDocType" class="form-control">
+                                <option value="">Select document type...</option>
+                                <option value="Progress Report">Progress Report</option>
+                                <option value="Surgical Intervention">Surgical Intervention</option>
+                                <option value="Blood Investigation">Blood Investigation</option>
+                                <option value="Imaging Report">Imaging Report</option>
+                                <option value="Discharge Summary">Discharge Summary</option>
+                                <option value="Consultation Note">Consultation Note</option>
+                                <option value="Laboratory Results">Laboratory Results</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <h4 style="margin: 15px 0 10px 0; color: #333;">Upload Option 1: Photo/Image</h4>
+                        <div class="btn-group" style="margin-bottom: 20px;">
+                            <button class="btn btn-primary" onclick="openCamera(&#39;newPatientDoc&#39;)">📷 Take Photo</button>
+                            <button class="btn btn-success" onclick="document.getElementById(&#39;newPatientDocUpload&#39;).click()">📤 Choose File</button>
+                            <input type="file" id="newPatientDocUpload" accept="image/*" style="display: none;" onchange="handleNewPatientDocUpload(event)">
+                        </div>
+
+                        <div style="text-align: center; margin: 20px 0; color: #999;">OR</div>
+
+                        <h4 style="margin: 15px 0 10px 0; color: #333;">Upload Option 2: Manual Text Entry</h4>
+                        <div class="form-group">
+                            <label>Enter Document Details/Findings</label>
+                            <textarea id="newPatientManualDocText" class="form-control" placeholder="Type the document content here..." style="min-height: 120px;"></textarea>
+                        </div>
+                        <button class="btn btn-success" onclick="addManualDocumentToNewPatient()">💾 Save Manual Entry</button>
+                    </div>
+                    
+                    <div id="newPatientDocuments"></div>
+                </div>
+
+                <div class="btn-group" style="margin-top: 30px;">
+                    <button class="btn btn-success" onclick="savePatient()">💾 Save Patient</button>
+                    <button class="btn btn-secondary" onclick="showHome()">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search View -->
+        <div id="searchView" class="view hidden">
+            <div class="card">
+                <h2 style="color: #1565c0; margin-bottom: 25px;">Search Patients</h2>
+                
+                <div class="btn-group" style="margin-bottom: 20px;">
+                    <select id="searchType" class="form-control" style="width: auto;">
+                        <option value="name">Search by Name</option>
+                        <option value="diagnosis">Search by Diagnosis</option>
+                        <option value="icd">Search by ICD Code</option>
+                    </select>
+                    <input type="text" id="searchInput" class="form-control" placeholder="Enter search term..." style="flex: 1;">
+                    <button class="btn btn-primary" onclick="performSearch()">🔍 Search</button>
+                </div>
+
+                <div id="searchResults"></div>
+
+                <button class="btn btn-secondary" onclick="showHome()" style="margin-top: 20px;">Back to Home</button>
+            </div>
+        </div>
+
+        <!-- Patient View -->
+        <div id="patientView" class="view hidden">
+            <div class="card">
+                <div style="border-bottom: 2px solid #1565c0; padding-bottom: 20px; margin-bottom: 20px;">
+                    <div class="header">
+                        <h1>Sirimavo Bandaranaike Specialised Children's Hospital</h1>
+                        <p>Dr Mathula Hettiarachchi - Consultant Pediatric Surgeon</p>
+                    </div>
+                    
+                    <div class="flex-between">
+                        <div>
+                            <h2 style="color: #333;" id="patientName"></h2>
+                            <p style="color: #666;">Patient ID: <span id="patientId"></span></p>
+                        </div>
+                        <div class="btn-group no-print">
+                            <button class="btn btn-orange" onclick="editPatient()">✏️ Edit</button>
+                            <button class="btn btn-success" onclick="window.print()">📥 Export PDF</button>
+                            <button class="btn btn-secondary" onclick="showHome()">Close</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Demographic Photo -->
+                <div id="demographicPhotoSection"></div>
+
+                <h3 style="margin-bottom: 15px;">Demographics</h3>
+                <div class="grid-4" id="patientDemographics"></div>
+
+                <h3 style="margin: 25px 0 15px 0;">Diagnoses</h3>
+                <div id="patientDiagnoses"></div>
+
+                <div class="flex-between" style="margin-top: 30px;">
+                    <h3>Medical Documents</h3>
+                    <button class="btn btn-purple no-print" onclick="toggleDocUpload()">📤 Upload Document</button>
+                </div>
+
+                <div id="docUploadSection" class="hidden" style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin: 15px 0;">
+                    <div class="form-group">
+                        <label>Document Type</label>
+                        <select id="docType" class="form-control">
+                            <option value="">Select document type...</option>
+                            <option value="Progress Report">Progress Report</option>
+                            <option value="Surgical Intervention">Surgical Intervention</option>
+                            <option value="Blood Investigation">Blood Investigation</option>
+                            <option value="Imaging Report">Imaging Report</option>
+                            <option value="Discharge Summary">Discharge Summary</option>
+                            <option value="Consultation Note">Consultation Note</option>
+                            <option value="Laboratory Results">Laboratory Results</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <h4 style="margin: 15px 0 10px 0; color: #333;">Upload Option 1: Photo/Image</h4>
+                    <div class="btn-group" style="margin-bottom: 20px;">
+                        <button class="btn btn-primary" onclick="openCamera(&#39;document&#39;)">📷 Take Photo</button>
+                        <button class="btn btn-success" onclick="document.getElementById(&#39;docUpload&#39;).click()">📤 Choose File</button>
+                        <input type="file" id="docUpload" accept="image/*" style="display: none;" onchange="handleDocUpload(event)">
+                    </div>
+
+                    <div style="text-align: center; margin: 20px 0; color: #999;">OR</div>
+
+                    <h4 style="margin: 15px 0 10px 0; color: #333;">Upload Option 2: Manual Text Entry</h4>
+                    <div class="form-group">
+                        <label>Enter Document Details/Findings</label>
+                        <textarea id="manualDocText" class="form-control" placeholder="Type the document content here..." style="min-height: 120px;"></textarea>
+                    </div>
+                    <button class="btn btn-success" onclick="addManualDocument()">💾 Save Manual Entry</button>
+                </div>
+
+                <div id="patientDocuments"></div>
+            </div>
+        </div>
+
+        <!-- Edit Patient View -->
+        <div id="editPatientView" class="view hidden">
+            <div class="card">
+                <h2 style="color: #1565c0; margin-bottom: 25px;">Edit Patient Details</h2>
+                
+                <div class="alert alert-info">
+                    <strong>Patient ID:</strong> <span id="editPatientId"></span>
+                </div>
+
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Full Name *</label>
+                        <input type="text" id="editName" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Date of Birth *</label>
+                        <input type="date" id="editDob" class="form-control" onchange="calculateEditAge()">
+                    </div>
+                    <div class="form-group">
+                        <label>Age (auto-calculated)</label>
+                        <input type="text" id="editAge" class="form-control" readonly="" style="background: #f5f5f5;">
+                    </div>
+                    <div class="form-group">
+                        <label>Sex</label>
+                        <select id="editSex" class="form-control">
+                            <option value="">Select</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Current Weight (kg)</label>
+                        <input type="text" id="editWeight" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Birth Weight (kg)</label>
+                        <input type="text" id="editBirthWeight" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Gestation (weeks)</label>
+                        <input type="text" id="editGestation" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Admission Type</label>
+                        <select id="editAdmissionType" class="form-control">
+                            <option value="">Select</option>
+                            <option value="Requested">Requested</option>
+                            <option value="Urgent">Urgent</option>
+                            <option value="Acute">Acute</option>
+                            <option value="Neonatal">Neonatal</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Patient Type</label>
+                        <select id="editPatientType" class="form-control">
+                            <option value="Outpatient">Outpatient</option>
+                            <option value="Inpatient">Inpatient</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Date of Admission</label>
+                        <input type="date" id="editDateAdmission" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Date of Discharge</label>
+                        <input type="date" id="editDateDischarge" class="form-control">
+                    </div>
+                </div>
+
+                <div class="btn-group" style="margin-top: 30px;">
+                    <button class="btn btn-success" onclick="saveEditedPatient()">💾 Save Changes</button>
+                    <button class="btn btn-secondary" onclick="cancelEdit()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Camera Modal -->
+    <div id="cameraModal" class="modal">
+        <div class="modal-content">
+            <h3 style="margin-bottom: 15px;">Position document in frame</h3>
+            <video id="cameraVideo" class="camera-view" autoplay="" playsinline=""></video>
+            <canvas id="cameraCanvas" style="display: none;"></canvas>
+            <div class="btn-group">
+                <button class="btn btn-primary" onclick="capturePhoto()">📷 Capture Photo</button>
+                <button class="btn btn-secondary" onclick="closeCamera()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loading" class="loading">
+        <div style="background: white; padding: 30px; border-radius: 12px; text-align: center; min-width: 250px;">
+            <div class="spinner"></div>
+            <p style="margin-top: 15px; color: #333;" id="loadingText">Processing image...</p>
+            <p class="progress-text" id="progressText"></p>
+        </div>
+    </div>
+
+    <script>
+        // Comprehensive ICD-10 Codes Database (Pediatric Focus)
+        const ICD10_CODES = [
+            // Neonatal Conditions
+            { code: 'P07.0', description: 'Extremely low birth weight newborn' },
+            { code: 'P07.1', description: 'Other low birth weight newborn' },
+            { code: 'P07.2', description: 'Extreme immaturity of newborn' },
+            { code: 'P07.3', description: 'Other preterm newborn' },
+            { code: 'P22.0', description: 'Respiratory distress syndrome of newborn' },
+            { code: 'P59.9', description: 'Neonatal jaundice, unspecified' },
+            { code: 'P35.0', description: 'Congenital rubella syndrome' },
+            { code: 'P36.9', description: 'Bacterial sepsis of newborn, unspecified' },
+            
+            // Congenital Malformations
+            { code: 'Q21.0', description: 'Ventricular septal defect' },
+            { code: 'Q21.1', description: 'Atrial septal defect' },
+            { code: 'Q21.3', description: 'Tetralogy of Fallot' },
+            { code: 'Q25.0', description: 'Patent ductus arteriosus' },
+            { code: 'Q35.9', description: 'Cleft palate, unspecified' },
+            { code: 'Q36.9', description: 'Cleft lip, unspecified' },
+            { code: 'Q43.1', description: 'Hirschsprung disease' },
+            { code: 'Q79.2', description: 'Exomphalos' },
+            { code: 'Q79.3', description: 'Gastroschisis' },
+            { code: 'Q64.1', description: 'Exstrophy of urinary bladder' },
+            { code: 'Q62.0', description: 'Congenital hydronephrosis' },
+            { code: 'Q65.0', description: 'Congenital dislocation of hip, unilateral' },
+            { code: 'Q66.8', description: 'Other congenital deformities of feet' },
+            { code: 'Q90.9', description: 'Down syndrome, unspecified' },
+            
+            // Pediatric Surgical Conditions
+            { code: 'K40.90', description: 'Unilateral inguinal hernia, without obstruction or gangrene' },
+            { code: 'K35.80', description: 'Acute appendicitis' },
+            { code: 'K56.0', description: 'Intussusception' },
+            { code: 'K42.9', description: 'Umbilical hernia without obstruction or gangrene' },
+            { code: 'Q41.0', description: 'Congenital absence, atresia and stenosis of duodenum' },
+            { code: 'Q42.9', description: 'Congenital absence, atresia and stenosis of large intestine' },
+            { code: 'N13.5', description: 'Crossing vessel and stricture of ureter' },
+            { code: 'Q39.0', description: 'Atresia of oesophagus without fistula' },
+            { code: 'Q39.1', description: 'Atresia of oesophagus with tracheo-oesophageal fistula' },
+            
+            // Pediatric Infections
+            { code: 'J18.9', description: 'Pneumonia, unspecified organism' },
+            { code: 'J06.9', description: 'Acute upper respiratory infection, unspecified' },
+            { code: 'J03.90', description: 'Acute tonsillitis, unspecified' },
+            { code: 'A09', description: 'Infectious gastroenteritis and colitis' },
+            { code: 'B34.9', description: 'Viral infection, unspecified' },
+            { code: 'B97.89', description: 'Other viral agents as the cause of diseases classified elsewhere' },
+            { code: 'A49.9', description: 'Bacterial infection, unspecified' },
+            { code: 'L03.90', description: 'Cellulitis, unspecified' },
+            { code: 'K35.30', description: 'Acute appendicitis with localized peritonitis' },
+            
+            // Pediatric Trauma
+            { code: 'S06.0X0A', description: 'Concussion without loss of consciousness, initial encounter' },
+            { code: 'S52.501A', description: 'Fracture of radial styloid process, initial encounter' },
+            { code: 'S52.509A', description: 'Fracture of lower end of radius, initial encounter' },
+            { code: 'S83.209A', description: 'Tear of meniscus, initial encounter' },
+            { code: 'S82.001A', description: 'Fracture of patella, initial encounter' },
+            { code: 'S82.101A', description: 'Fracture of upper end of tibia, initial encounter' },
+            { code: 'S82.401A', description: 'Fracture of shaft of fibula, initial encounter' },
+            { code: 'T14.8', description: 'Other injury of unspecified body region' },
+            { code: 'T75.4', description: 'Effects of foreign body entering through natural orifice' },
+            
+            // Pediatric Urological Conditions
+            { code: 'N13.3', description: 'Other and unspecified hydronephrosis' },
+            { code: 'N13.4', description: 'Hydroureter' },
+            { code: 'N13.5', description: 'Crossing vessel and stricture of ureter' },
+            { code: 'Q64.0', description: 'Epispadias' },
+            { code: 'Q54.9', description: 'Hypospadias, unspecified' },
+            { code: 'N39.0', description: 'Urinary tract infection, site not specified' },
+            { code: 'N47.1', description: 'Phimosis' },
+            { code: 'N47.6', description: 'Paraphimosis' },
+            
+            // Pediatric Gastrointestinal Conditions
+            { code: 'K21.9', description: 'Gastro-oesophageal reflux disease without oesophagitis' },
+            { code: 'K52.9', description: 'Noninfective gastroenteritis and colitis, unspecified' },
+            { code: 'K56.1', description: 'Paralytic ileus' },
+            { code: 'K56.60', description: 'Unspecified intestinal obstruction' },
+            { code: 'K59.00', description: 'Constipation, unspecified' },
+            { code: 'K59.01', description: 'Slow transit constipation' },
+            { code: 'K59.09', description: 'Other constipation' },
+            { code: 'K92.1', description: 'Melaena' },
+            { code: 'K92.2', description: 'Gastrointestinal haemorrhage, unspecified' },
+            
+            // Pediatric Neurological Conditions
+            { code: 'G40.909', description: 'Epilepsy, unspecified, not intractable, without status epilepticus' },
+            { code: 'G80.9', description: 'Cerebral palsy, unspecified' },
+            { code: 'G93.40', description: 'Encephalopathy, unspecified' },
+            { code: 'G91.9', description: 'Hydrocephalus, unspecified' },
+            { code: 'G93.2', description: 'Benign intracranial hypertension' },
+            { code: 'G82.50', description: 'Quadriplegia, unspecified' },
+            { code: 'G82.20', description: 'Paraplegia, unspecified' },
+            { code: 'G82.11', description: 'Spastic hemiplegia affecting right dominant side' },
+            
+            // Pediatric Oncology
+            { code: 'C71.9', description: 'Malignant neoplasm of brain, unspecified' },
+            { code: 'C81.90', description: 'Hodgkin lymphoma, unspecified' },
+            { code: 'C91.00', description: 'Acute lymphoblastic leukaemia not having achieved remission' },
+            { code: 'C49.9', description: 'Malignant neoplasm of connective and soft tissue, unspecified' },
+            { code: 'C41.4', description: 'Malignant neoplasm of pelvic bones, sacrum and coccyx' },
+            { code: 'C74.90', description: 'Malignant neoplasm of adrenal gland, unspecified' },
+            { code: 'C64.9', description: 'Malignant neoplasm of kidney, except renal pelvis' },
+            { code: 'C56.9', description: 'Malignant neoplasm of ovary' },
+            { code: 'C62.90', description: 'Malignant neoplasm of testis, unspecified whether descended or undescended' },
+            
+            // Pediatric Endocrine and Metabolic
+            { code: 'E10.9', description: 'Type 1 diabetes mellitus without complications' },
+            { code: 'E03.9', description: 'Hypothyroidism, unspecified' },
+            { code: 'E04.9', description: 'Nontoxic goitre, unspecified' },
+            { code: 'E27.9', description: 'Disorder of adrenal gland, unspecified' },
+            { code: 'E74.9', description: 'Disorder of carbohydrate metabolism, unspecified' },
+            { code: 'E78.5', description: 'Hyperlipidaemia, unspecified' },
+            { code: 'E55.9', description: 'Vitamin D deficiency, unspecified' },
+            { code: 'E83.39', description: 'Other disorders of phosphorus metabolism' },
+            
+            // Pediatric Hematological Conditions
+            { code: 'D50.9', description: 'Iron deficiency anaemia, unspecified' },
+            { code: 'D64.9', description: 'Anaemia, unspecified' },
+            { code: 'D69.6', description: 'Thrombocytopenia, unspecified' },
+            { code: 'D65', description: 'Disseminated intravascular coagulation' },
+            { code: 'D61.9', description: 'Aplastic anaemia, unspecified' },
+            { code: 'D56.9', description: 'Thalassaemia, unspecified' },
+            { code: 'D57.00', description: 'Hb-SS disease without crisis' },
+            { code: 'D58.0', description: 'Hereditary spherocytosis' },
+            
+            // Pediatric Dermatological Conditions
+            { code: 'L20.9', description: 'Atopic dermatitis, unspecified' },
+            { code: 'L30.9', description: 'Dermatitis, unspecified' },
+            { code: 'L50.9', description: 'Urticaria, unspecified' },
+            { code: 'L98.9', description: 'Disorder of skin and subcutaneous tissue, unspecified' },
+            { code: 'L03.90', description: 'Cellulitis, unspecified' },
+            { code: 'L02.91', description: 'Cutaneous abscess, unspecified' },
+            { code: 'L73.9', description: 'Follicular disorder, unspecified' },
+            { code: 'L81.9', description: 'Disorder of pigmentation, unspecified' },
+            
+            // Pediatric Ophthalmological Conditions
+            { code: 'H10.9', description: 'Conjunctivitis, unspecified' },
+            { code: 'H52.9', description: 'Disorder of refraction, unspecified' },
+            { code: 'H53.9', description: 'Visual disturbance, unspecified' },
+            { code: 'H54.7', description: 'Unspecified visual loss' },
+            { code: 'H02.9', description: 'Disorder of eyelid, unspecified' },
+            { code: 'H05.9', description: 'Disorder of orbit, unspecified' },
+            { code: 'H16.9', description: 'Disorder of sclera, cornea, iris and ciliary body, unspecified' },
+            { code: 'H40.9', description: 'Glaucoma, unspecified' },
+            
+            // Pediatric ENT Conditions
+            { code: 'H65.90', description: 'Otitis media, unspecified' },
+            { code: 'H66.90', description: 'Otitis media, unspecified' },
+            { code: 'H70.90', description: 'Mastoiditis, unspecified' },
+            { code: 'J32.9', description: 'Chronic sinusitis, unspecified' },
+            { code: 'J35.9', description: 'Chronic disease of tonsils and adenoids, unspecified' },
+            { code: 'J38.7', description: 'Other diseases of larynx' },
+            { code: 'H90.5', description: 'Unspecified hearing loss, unilateral' },
+            { code: 'H91.90', description: 'Unspecified hearing loss' },
+            
+            // Pediatric Orthopedic Conditions
+            { code: 'M21.00', description: 'Valgus deformity, not elsewhere classified, unspecified site' },
+            { code: 'M21.10', description: 'Varus deformity, not elsewhere classified, unspecified site' },
+            { code: 'M24.20', description: 'Disorder of ligament, unspecified site' },
+            { code: 'M24.50', description: 'Contracture of joint, unspecified site' },
+            { code: 'M25.50', description: 'Pain in unspecified joint' },
+            { code: 'M41.90', description: 'Scoliosis, unspecified' },
+            { code: 'M43.6', description: 'Torticollis' },
+            { code: 'M84.40XA', description: 'Pathological fracture, unspecified site, initial encounter' },
+            
+            // Pediatric Rheumatological Conditions
+            { code: 'M08.90', description: 'Juvenile arthritis, unspecified' },
+            { code: 'M08.00', description: 'Unspecified juvenile rheumatoid arthritis of unspecified site' },
+            { code: 'M08.10', description: 'Juvenile ankylosing spondylitis, unspecified site' },
+            { code: 'M32.9', description: 'Systemic lupus erythematosus, unspecified' },
+            { code: 'M33.90', description: 'Dermatopolymyositis, unspecified' },
+            { code: 'M34.9', description: 'Systemic sclerosis, unspecified' },
+            { code: 'M35.9', description: 'Sjogren syndrome, unspecified' },
+            { code: 'M79.7', description: 'Fibromyalgia' },
+            
+            // Pediatric Renal Conditions
+            { code: 'N04.9', description: 'Nephrotic syndrome with unspecified morphological changes' },
+            { code: 'N05.9', description: 'Unspecified nephritic syndrome' },
+            { code: 'N18.9', description: 'Chronic kidney disease, unspecified' },
+            { code: 'N19', description: 'Unspecified kidney failure' },
+            { code: 'N28.9', description: 'Disorder of kidney and ureter, unspecified' },
+            { code: 'N39.0', description: 'Urinary tract infection, site not specified' },
+            { code: 'R80.9', description: 'Isolated proteinuria, unspecified' },
+            { code: 'R31.9', description: 'Haematuria, unspecified' }
+        ];
+
+        // Global variables
+        let currentPatientId = null;
+        let selectedDiagnoses = [];
+        let currentDocuments = [];
+        let cameraStream = null;
+        let cameraContext = null;
+        let currentCameraMode = null;
+        let currentPatientData = null;
+
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', function() {
+            loadRecentPatients();
+            generatePatientId();
+        });
+
+        // Generate a new patient ID
+        function generatePatientId() {
+            const date = new Date();
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear().toString().substr(-2);
+            const random = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
+            document.getElementById('newPatientId').textContent = `SBSCH${day}${month}${year}${random}`;
+        }
+
+        // View navigation functions
+        function showHome() {
+            document.querySelectorAll('.view').forEach(view => view.classList.add('hidden'));
+            document.getElementById('homeView').classList.remove('hidden');
+            loadRecentPatients();
+        }
+
+        function showNewPatient() {
+            document.querySelectorAll('.view').forEach(view => view.classList.add('hidden'));
+            document.getElementById('newPatientView').classList.remove('hidden');
+            generatePatientId();
+            selectedDiagnoses = [];
+            currentDocuments = [];
+            updateDiagnosisList();
+            updateNewPatientDocuments();
+            document.getElementById('extractedTextSection').classList.add('hidden');
+        }
+
+        function showSearch() {
+            document.querySelectorAll('.view').forEach(view => view.classList.add('hidden'));
+            document.getElementById('searchView').classList.remove('hidden');
+            document.getElementById('searchInput').value = '';
+            document.getElementById('searchResults').innerHTML = '<p style="text-align: center; color: #666; padding: 30px;">Enter search terms above to find patients</p>';
+        }
+
+        function showPatient(id) {
+            const patients = JSON.parse(localStorage.getItem('patients') || '[]');
+            const patient = patients.find(p => p.id === id);
+            if (!patient) return;
+
+            currentPatientId = id;
+            currentPatientData = patient;
+
+            document.querySelectorAll('.view').forEach(view => view.classList.add('hidden'));
+            document.getElementById('patientView').classList.remove('hidden');
+
+            // Populate patient data
+            document.getElementById('patientName').textContent = patient.name;
+            document.getElementById('patientId').textContent = patient.id;
+
+            // Populate demographics
+            const demographicsContainer = document.getElementById('patientDemographics');
+            demographicsContainer.innerHTML = `
+                <div class="info-card">
+                    <p>Date of Birth</p>
+                    <p>${patient.dob || 'Not specified'}</p>
+                </div>
+                <div class="info-card">
+                    <p>Age</p>
+                    <p>${patient.age || 'Not specified'}</p>
+                </div>
+                <div class="info-card">
+                    <p>Sex</p>
+                    <p>${patient.sex || 'Not specified'}</p>
+                </div>
+                <div class="info-card">
+                    <p>Weight</p>
+                    <p>${patient.weight || 'Not specified'}</p>
+                </div>
+                <div class="info-card">
+                    <p>Birth Weight</p>
+                    <p>${patient.birthWeight || 'Not specified'}</p>
+                </div>
+                <div class="info-card">
+                    <p>Gestation</p>
+                    <p>${patient.gestation || 'Not specified'}</p>
+                </div>
+                <div class="info-card">
+                    <p>Admission Type</p>
+                    <p>${patient.admissionType || 'Not specified'}</p>
+                </div>
+                <div class="info-card">
+                    <p>Patient Type</p>
+                    <p>${patient.patientType || 'Not specified'}</p>
+                </div>
+                <div class="info-card">
+                    <p>Date of Admission</p>
+                    <p>${patient.dateAdmission || 'Not specified'}</p>
+                </div>
+                <div class="info-card">
+                    <p>Date of Discharge</p>
+                    <p>${patient.dateDischarge || 'Not specified'}</p>
+                </div>
+            `;
+
+            // Populate diagnoses
+            const diagnosesContainer = document.getElementById('patientDiagnoses');
+            if (patient.diagnoses && patient.diagnoses.length > 0) {
+                diagnosesContainer.innerHTML = '';
+                patient.diagnoses.forEach(diagnosis => {
+                    const diagnosisItem = document.createElement('div');
+                    diagnosisItem.className = 'diagnosis-item';
+                    diagnosisItem.innerHTML = `
+                        <div>
+                            <strong>${diagnosis.code || 'No code'}</strong> - ${diagnosis.description}
+                        </div>
+                    `;
+                    diagnosesContainer.appendChild(diagnosisItem);
+                });
+            } else {
+                diagnosesContainer.innerHTML = '<p style="text-align: center; color: #666; padding: 15px;">No diagnoses recorded</p>';
+            }
+
+            // Populate documents
+            updatePatientDocuments();
+
+            // Show demographic photo if available
+            const photoSection = document.getElementById('demographicPhotoSection');
+            if (patient.demographicPhoto) {
+                photoSection.innerHTML = `
+                    <h3 style="margin-bottom: 15px;">Demographic Document</h3>
+                    <div class="image-text-container">
+                        <div class="image-container">
+                            <img src="${patient.demographicPhoto}" alt="Demographic Document" style="max-width: 100%; border-radius: 8px; border: 2px solid #ddd;">
+                        </div>
+                        <div class="text-container">
+                            <h4 style="margin-bottom: 10px;">Extracted Text</h4>
+                            <div class="extracted-text-content">${patient.extractedText || 'No text extracted'}</div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                photoSection.innerHTML = '';
+            }
+        }
+
+        function editPatient() {
+            const patients = JSON.parse(localStorage.getItem('patients') || '[]');
+            const patient = patients.find(p => p.id === currentPatientId);
+            if (!patient) return;
+
+            document.querySelectorAll('.view').forEach(view => view.classList.add('hidden'));
+            document.getElementById('editPatientView').classList.remove('hidden');
+
+            // Populate edit form
+            document.getElementById('editPatientId').textContent = patient.id;
+            document.getElementById('editName').value = patient.name || '';
+            document.getElementById('editDob').value = patient.dob || '';
+            document.getElementById('editAge').value = patient.age || '';
+            document.getElementById('editSex').value = patient.sex || '';
+            document.getElementById('editWeight').value = patient.weight || '';
+            document.getElementById('editBirthWeight').value = patient.birthWeight || '';
+            document.getElementById('editGestation').value = patient.gestation || '';
+            document.getElementById('editAdmissionType').value = patient.admissionType || '';
+            document.getElementById('editPatientType').value = patient.patientType || '';
+            document.getElementById('editDateAdmission').value = patient.dateAdmission || '';
+            document.getElementById('editDateDischarge').value = patient.dateDischarge || '';
+        }
+
+        function cancelEdit() {
+            showPatient(currentPatientId);
+        }
+
+        // Camera functionality
+        function openCamera(mode) {
+            currentCameraMode = mode;
+            const modal = document.getElementById('cameraModal');
+            const video = document.getElementById('cameraVideo');
+            
+            modal.classList.add('active');
+            
+            navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
+                .then(stream => {
+                    cameraStream = stream;
+                    video.srcObject = stream;
+                })
+                .catch(err => {
+                    console.error('Error accessing camera:', err);
+                    alert('Unable to access camera. Please check permissions.');
+                    closeCamera();
+                });
+        }
+
+        function closeCamera() {
+            const modal = document.getElementById('cameraModal');
+            const video = document.getElementById('cameraVideo');
+            
+            if (cameraStream) {
+                cameraStream.getTracks().forEach(track => track.stop());
+                cameraStream = null;
+            }
+            
+            modal.classList.remove('active');
+        }
+
+        function capturePhoto() {
+            const video = document.getElementById('cameraVideo');
+            const canvas = document.getElementById('cameraCanvas');
+            const context = canvas.getContext('2d');
+            
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            
+            const imageData = canvas.toDataURL('image/jpeg');
+            
+            closeCamera();
+            
+            if (currentCameraMode === 'demographics') {
+                document.getElementById('demoImagePreview').innerHTML = `
+                    <img src="${imageData}" class="image-preview">
+                `;
+                extractTextFromImage(imageData);
+            } else if (currentCameraMode === 'document') {
+                addDocumentImage(imageData);
+            } else if (currentCameraMode === 'newPatientDoc') {
+                addNewPatientDocumentImage(imageData);
+            }
+        }
+
+        // Handle file uploads
+        function handleDemoUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const imageData = e.target.result;
+                document.getElementById('demoImagePreview').innerHTML = `
+                    <img src="${imageData}" class="image-preview">
+                `;
+                extractTextFromImage(imageData);
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function handleDocUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const imageData = e.target.result;
+                addDocumentImage(imageData);
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function handleNewPatientDocUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const imageData = e.target.result;
+                addNewPatientDocumentImage(imageData);
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // OCR Text Extraction
+        function extractTextFromImage(imageData) {
+            const loading = document.getElementById('loading');
+            const loadingText = document.getElementById('loadingText');
+            const progressText = document.getElementById('progressText');
+            
+            loading.classList.add('active');
+            loadingText.textContent = 'Extracting text from image...';
+            progressText.textContent = 'Initializing OCR engine...';
+            
+            Tesseract.recognize(
+                imageData,
+                'eng',
+                {
+                    logger: progress => {
+                        if (progress.status === 'recognizing text') {
+                            const percentage = Math.round(progress.progress * 100);
+                            progressText.textContent = `Processing: ${percentage}%`;
+                        }
+                    }
+                }
+            ).then(result => {
+                const extractedText = result.data.text;
+                document.getElementById('extractedTextContent').textContent = extractedText;
+                document.getElementById('extractedTextSection').classList.remove('hidden');
+                
+                // Try to auto-populate fields from extracted text
+                autoPopulateFields(extractedText);
+                
+                loading.classList.remove('active');
+            }).catch(err => {
+                console.error('OCR Error:', err);
+                alert('Error extracting text from image. Please try again or enter details manually.');
+                loading.classList.remove('active');
+            });
+        }
+
+        // Auto-populate fields from extracted text
+        function autoPopulateFields(text) {
+            // Try to extract name (first line often contains name)
+            const lines = text.split('\n').filter(line => line.trim().length > 0);
+            if (lines.length > 0) {
+                const firstLine = lines[0].trim();
+                if (firstLine.length > 2 && firstLine.length < 50) {
+                    document.getElementById('name').value = firstLine;
+                }
+            }
+            
+            // Try to extract date of birth (common patterns)
+            const dobPatterns = [
+                /(\d{1,2}[\/\-\.]\d{1,2}[\/\-\.]\d{2,4})/g, // DD/MM/YYYY or similar
+                /(DOB|Date of Birth|Birthday)[:\s]*([^,\n]+)/gi,
+                /(Born|Birth)[:\s]*([^,\n]+)/gi
+            ];
+            
+            for (const pattern of dobPatterns) {
+                const matches = text.match(pattern);
+                if (matches && matches.length > 0) {
+                    // Try to parse the date
+                    const dateStr = matches[0].replace(/[^0-9\/\-\.]/g, '');
+                    if (dateStr.length >= 6) {
+                        document.getElementById('dob').value = formatDate(dateStr);
+                        calculateAge();
+                        break;
+                    }
+                }
+            }
+            
+            // Try to extract sex/gender
+            if (text.match(/male/i) && !text.match(/female/i)) {
+                document.getElementById('sex').value = 'Male';
+            } else if (text.match(/female/i) && !text.match(/male/i)) {
+                document.getElementById('sex').value = 'Female';
+            }
+            
+            // Try to extract weight
+            const weightPattern = /(\d+(\.\d+)?)\s*(kg|kgs|kilograms?)/gi;
+            const weightMatch = text.match(weightPattern);
+            if (weightMatch && weightMatch.length > 0) {
+                const weight = weightMatch[0].replace(/[^0-9\.]/g, '');
+                document.getElementById('weight').value = weight;
+            }
+        }
+
+        // Helper function to format date
+        function formatDate(dateStr) {
+            // Try to parse various date formats
+            const parts = dateStr.split(/[\/\-\.]/);
+            if (parts.length === 3) {
+                let day, month, year;
+                
+                if (parts[0].length === 4) {
+                    // YYYY-MM-DD format
+                    year = parts[0];
+                    month = parts[1];
+                    day = parts[2];
+                } else {
+                    // DD-MM-YYYY or MM-DD-YYYY
+                    day = parts[0];
+                    month = parts[1];
+                    year = parts[2];
+                }
+                
+                // Ensure 4-digit year
+                if (year.length === 2) {
+                    year = '20' + year;
+                }
+                
+                // Ensure 2-digit month and day
+                month = month.padStart(2, '0');
+                day = day.padStart(2, '0');
+                
+                return `${year}-${month}-${day}`;
+            }
+            
+            return '';
+        }
+
+        // Age calculation
+        function calculateAge() {
+            const dob = document.getElementById('dob').value;
+            if (!dob) return;
+            
+            const birthDate = new Date(dob);
+            const today = new Date();
+            
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const monthDiff = today.getMonth() - birthDate.getMonth();
+            
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            
+            document.getElementById('age').value = age + ' years';
+        }
+
+        function calculateEditAge() {
+            const dob = document.getElementById('editDob').value;
+            if (!dob) return;
+            
+            const birthDate = new Date(dob);
+            const today = new Date();
+            
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const monthDiff = today.getMonth() - birthDate.getMonth();
+            
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            
+            document.getElementById('editAge').value = age + ' years';
+        }
+
+        // ICD Code Search
+        function searchICD(query) {
+            const resultsContainer = document.getElementById('icdResults');
+            
+            if (!query || query.length < 2) {
+                resultsContainer.classList.add('hidden');
+                return;
+            }
+            
+            const filtered = ICD10_CODES.filter(item => 
+                item.code.toLowerCase().includes(query.toLowerCase()) || 
+                item.description.toLowerCase().includes(query.toLowerCase())
+            ).slice(0, 10); // Limit to 10 results
+            
+            if (filtered.length === 0) {
+                resultsContainer.innerHTML = '<div class="icd-item">No matching ICD codes found</div>';
+            } else {
+                resultsContainer.innerHTML = '';
+                filtered.forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = 'icd-item';
+                    div.innerHTML = `<strong>${item.code}</strong> - ${item.description}`;
+                    div.onclick = () => selectICD(item);
+                    resultsContainer.appendChild(div);
+                });
+            }
+            
+            resultsContainer.classList.remove('hidden');
+        }
+
+        // Select ICD code
+        function selectICD(item) {
+            if (selectedDiagnoses.length >= 10) {
+                alert('Maximum of 10 diagnoses allowed');
+                return;
+            }
+            
+            // Check if already added
+            if (selectedDiagnoses.some(d => d.code === item.code)) {
+                alert('This diagnosis is already added');
+                return;
+            }
+            
+            selectedDiagnoses.push({
+                code: item.code,
+                description: item.description
+            });
+            
+            document.getElementById('icdSearch').value = '';
+            document.getElementById('icdResults').classList.add('hidden');
+            updateDiagnosisList();
+        }
+
+        // Add free text diagnosis
+        function addFreeTextDiagnosis() {
+            const input = document.getElementById('freeTextDiagnosis');
+            const description = input.value.trim();
+            
+            if (!description) {
+                alert('Please enter a diagnosis description');
+                return;
+            }
+            
+            if (selectedDiagnoses.length >= 10) {
+                alert('Maximum of 10 diagnoses allowed');
+                return;
+            }
+            
+            selectedDiagnoses.push({
+                code: '',
+                description: description
+            });
+            
+            input.value = '';
+            updateDiagnosisList();
+        }
+
+        // Update diagnosis list display
+        function updateDiagnosisList() {
+            const container = document.getElementById('selectedDiagnoses');
+            const counter = document.getElementById('diagnosisCounter');
+            
+            container.innerHTML = '';
+            
+            if (selectedDiagnoses.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #666; padding: 15px;">No diagnoses added yet</p>';
+            } else {
+                selectedDiagnoses.forEach((diagnosis, index) => {
+                    const div = document.createElement('div');
+                    div.className = 'diagnosis-item';
+                    div.innerHTML = `
+                        <div>
+                            ${diagnosis.code ? `<strong>${diagnosis.code}</strong> - ` : ''}${diagnosis.description}
+                        </div>
+                        <button class="btn btn-danger" onclick="removeDiagnosis(${index})">❌ Remove</button>
+                    `;
+                    container.appendChild(div);
+                });
+            }
+            
+            counter.textContent = `${selectedDiagnoses.length} / 10 diagnoses added`;
+        }
+
+        // Remove diagnosis
+        function removeDiagnosis(index) {
+            selectedDiagnoses.splice(index, 1);
+            updateDiagnosisList();
+        }
+
+        // Document management
+        function addDocumentImage(imageData) {
+            const docType = document.getElementById('docType').value;
+            if (!docType) {
+                alert('Please select a document type first');
+                return;
+            }
+            
+            const patients = JSON.parse(localStorage.getItem('patients') || '[]');
+            const patientIndex = patients.findIndex(p => p.id === currentPatientId);
+            
+            if (patientIndex === -1) return;
+            
+            if (!patients[patientIndex].documents) {
+                patients[patientIndex].documents = [];
+            }
+            
+            const docId = 'doc_' + Date.now();
+            patients[patientIndex].documents.push({
+                id: docId,
+                type: docType,
+                image: imageData,
+                text: '',
+                date: new Date().toISOString().split('T')[0]
+            });
+            
+            localStorage.setItem('patients', JSON.stringify(patients));
+            updatePatientDocuments();
+            
+            // Reset form
+            document.getElementById('docType').value = '';
+            document.getElementById('docUploadSection').classList.add('hidden');
+        }
+
+        function addNewPatientDocumentImage(imageData) {
+            const docType = document.getElementById('newPatientDocType').value;
+            if (!docType) {
+                alert('Please select a document type first');
+                return;
+            }
+            
+            const docId = 'doc_' + Date.now();
+            currentDocuments.push({
+                id: docId,
+                type: docType,
+                image: imageData,
+                text: '',
+                date: new Date().toISOString().split('T')[0]
+            });
+            
+            updateNewPatientDocuments();
+            
+            // Reset form
+            document.getElementById('newPatientDocType').value = '';
+        }
+
+        function addManualDocument() {
+            const docType = document.getElementById('docType').value;
+            const text = document.getElementById('manualDocText').value.trim();
+            
+            if (!docType) {
+                alert('Please select a document type');
+                return;
+            }
+            
+            if (!text) {
+                alert('Please enter document content');
+                return;
+            }
+            
+            const patients = JSON.parse(localStorage.getItem('patients') || '[]');
+            const patientIndex = patients.findIndex(p => p.id === currentPatientId);
+            
+            if (patientIndex === -1) return;
+            
+            if (!patients[patientIndex].documents) {
+                patients[patientIndex].documents = [];
+            }
+            
+            const docId = 'doc_' + Date.now();
+            patients[patientIndex].documents.push({
+                id: docId,
+                type: docType,
+                image: '',
+                text: text,
+                date: new Date().toISOString().split('T')[0]
+            });
+            
+            localStorage.setItem('patients', JSON.stringify(patients));
+            updatePatientDocuments();
+            
+            // Reset form
+            document.getElementById('docType').value = '';
+            document.getElementById('manualDocText').value = '';
+            document.getElementById('docUploadSection').classList.add('hidden');
+        }
+
+        function addManualDocumentToNewPatient() {
+            const docType = document.getElementById('newPatientDocType').value;
+            const text = document.getElementById('newPatientManualDocText').value.trim();
+            
+            if (!docType) {
+                alert('Please select a document type');
+                return;
+            }
+            
+            if (!text) {
+                alert('Please enter document content');
+                return;
+            }
+            
+            const docId = 'doc_' + Date.now();
+            currentDocuments.push({
+                id: docId,
+                type: docType,
+                image: '',
+                text: text,
+                date: new Date().toISOString().split('T')[0]
+            });
+            
+            updateNewPatientDocuments();
+            
+            // Reset form
+            document.getElementById('newPatientDocType').value = '';
+            document.getElementById('newPatientManualDocText').value = '';
+        }
+
+        function updatePatientDocuments() {
+            const patients = JSON.parse(localStorage.getItem('patients') || '[]');
+            const patient = patients.find(p => p.id === currentPatientId);
+            if (!patient) return;
+            
+            const container = document.getElementById('patientDocuments');
+            container.innerHTML = '';
+            
+            if (!patient.documents || patient.documents.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #666; padding: 30px;">No documents uploaded yet</p>';
+                return;
+            }
+            
+            patient.documents.forEach(doc => {
+                const docItem = document.createElement('div');
+                docItem.className = 'doc-item';
+                docItem.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;">
+                        <div>
+                            <strong>${doc.type}</strong>
+                            <div style="font-size: 14px; color: #666;">${doc.date}</div>
+                        </div>
+                        <button class="btn btn-danger" onclick="deleteDocument('${doc.id}')">🗑️ Delete</button>
+                    </div>
+                    ${doc.image ? `<img src="${doc.image}" style="max-width: 200px; max-height: 200px; border-radius: 6px; margin-bottom: 10px;">` : ''}
+                    ${doc.text ? `<div style="background: white; padding: 10px; border-radius: 6px; margin-top: 10px;">${doc.text}</div>` : ''}
+                `;
+                container.appendChild(docItem);
+            });
+        }
+
+        function updateNewPatientDocuments() {
+            const container = document.getElementById('newPatientDocuments');
+            container.innerHTML = '';
+            
+            if (currentDocuments.length === 0) {
+                return;
+            }
+            
+            container.innerHTML = '<h4 style="margin-bottom: 15px;">Documents to be saved with patient:</h4>';
+            
+            currentDocuments.forEach(doc => {
+                const docItem = document.createElement('div');
+                docItem.className = 'doc-item';
+                docItem.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;">
+                        <div>
+                            <strong>${doc.type}</strong>
+                            <div style="font-size: 14px; color: #666;">${doc.date}</div>
+                        </div>
+                        <button class="btn btn-danger" onclick="deleteNewPatientDocument('${doc.id}')">🗑️ Remove</button>
+                    </div>
+                    ${doc.image ? `<img src="${doc.image}" style="max-width: 200px; max-height: 200px; border-radius: 6px; margin-bottom: 10px;">` : ''}
+                    ${doc.text ? `<div style="background: white; padding: 10px; border-radius: 6px; margin-top: 10px;">${doc.text}</div>` : ''}
+                `;
+                container.appendChild(docItem);
+            });
+        }
+
+        function deleteDocument(docId) {
+            if (!confirm('Are you sure you want to delete this document?')) return;
+            
+            const patients = JSON.parse(localStorage.getItem('patients') || '[]');
+            const patientIndex = patients.findIndex(p => p.id === currentPatientId);
+            
+            if (patientIndex === -1) return;
+            
+            patients[patientIndex].documents = patients[patientIndex].documents.filter(d => d.id !== docId);
+            localStorage.setItem('patients', JSON.stringify(patients));
+            updatePatientDocuments();
+        }
+
+        function deleteNewPatientDocument(docId) {
+            currentDocuments = currentDocuments.filter(d => d.id !== docId);
+            updateNewPatientDocuments();
+        }
+
+        function toggleDocUpload() {
+            const section = document.getElementById('docUploadSection');
+            section.classList.toggle('hidden');
+        }
+
+        // Save patient
+        function savePatient() {
+            const name = document.getElementById('name').value.trim();
+            const dob = document.getElementById('dob').value;
+            
+            if (!name) {
+                alert('Patient name is required');
+                return;
+            }
+            
+            if (!dob) {
+                alert('Date of birth is required');
+                return;
+            }
+            
+            const patientId = document.getElementById('newPatientId').textContent;
+            const demographicPhoto = document.getElementById('demoImagePreview').querySelector('img')?.src || '';
+            const extractedText = document.getElementById('extractedTextContent').textContent || '';
+            
+            const patient = {
+                id: patientId,
+                name: name,
+                dob: dob,
+                age: document.getElementById('age').value,
+                sex: document.getElementById('sex').value,
+                weight: document.getElementById('weight').value,
+                birthWeight: document.getElementById('birthWeight').value,
+                gestation: document.getElementById('gestation').value,
+                admissionType: document.getElementById('admissionType').value,
+                patientType: document.getElementById('patientType').value,
+                dateAdmission: document.getElementById('dateAdmission').value,
+                dateDischarge: document.getElementById('dateDischarge').value,
+                diagnoses: selectedDiagnoses,
+                documents: currentDocuments,
+                demographicPhoto: demographicPhoto,
+                extractedText: extractedText,
+                createdAt: new Date().toISOString()
+            };
+            
+            const patients = JSON.parse(localStorage.getItem('patients') || '[]');
+            patients.push(patient);
+            localStorage.setItem('patients', JSON.stringify(patients));
+            
+            alert('Patient saved successfully!');
+            showPatient(patientId);
+        }
+
+        function saveEditedPatient() {
+            const name = document.getElementById('editName').value.trim();
+            const dob = document.getElementById('editDob').value;
+            
+            if (!name) {
+                alert('Patient name is required');
+                return;
+            }
+            
+            if (!dob) {
+                alert('Date of birth is required');
+                return;
+            }
+            
+            const patients = JSON.parse(localStorage.getItem('patients') || '[]');
+            const patientIndex = patients.findIndex(p => p.id === currentPatientId);
+            
+            if (patientIndex === -1) return;
+            
+            patients[patientIndex].name = name;
+            patients[patientIndex].dob = dob;
+            patients[patientIndex].age = document.getElementById('editAge').value;
+            patients[patientIndex].sex = document.getElementById('editSex').value;
+            patients[patientIndex].weight = document.getElementById('editWeight').value;
+            patients[patientIndex].birthWeight = document.getElementById('editBirthWeight').value;
+            patients[patientIndex].gestation = document.getElementById('editGestation').value;
+            patients[patientIndex].admissionType = document.getElementById('editAdmissionType').value;
+            patients[patientIndex].patientType = document.getElementById('editPatientType').value;
+            patients[patientIndex].dateAdmission = document.getElementById('editDateAdmission').value;
+            patients[patientIndex].dateDischarge = document.getElementById('editDateDischarge').value;
+            
+            localStorage.setItem('patients', JSON.stringify(patients));
+            
+            alert('Patient details updated successfully!');
+            showPatient(currentPatientId);
+        }
+
+        // Search functionality
+        function performSearch() {
+            const searchType = document.getElementById('searchType').value;
+            const query = document.getElementById('searchInput').value.trim().toLowerCase();
+            
+            if (!query) {
+                alert('Please enter a search term');
+                return;
+            }
+            
+            const patients = JSON.parse(localStorage.getItem('patients') || '[]');
+            let results = [];
+            
+            if (searchType === 'name') {
+                results = patients.filter(p => p.name.toLowerCase().includes(query));
+            } else if (searchType === 'diagnosis') {
+                results = patients.filter(p => 
+                    p.diagnoses && p.diagnoses.some(d => 
+                        d.description.toLowerCase().includes(query)
+                    )
+                );
+            } else if (searchType === 'icd') {
+                results = patients.filter(p => 
+                    p.diagnoses && p.diagnoses.some(d => 
+                        d.code.toLowerCase().includes(query)
+                    )
+                );
+            }
+            
+            displaySearchResults(results);
+        }
+
+        function displaySearchResults(results) {
+            const container = document.getElementById('searchResults');
+            
+            if (results.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #666; padding: 30px;">No patients found matching your search</p>';
+                return;
+            }
+            
+            container.innerHTML = `<h3 style="margin-bottom: 15px;">Found ${results.length} patient(s)</h3>`;
+            
+            results.forEach(patient => {
+                const item = document.createElement('div');
+                item.className = 'patient-list-item';
+                item.onclick = () => showPatient(patient.id);
+                
+                let diagnosisText = '';
+                if (patient.diagnoses && patient.diagnoses.length > 0) {
+                    diagnosisText = patient.diagnoses.map(d => d.code || d.description).join(', ');
+                    if (diagnosisText.length > 50) {
+                        diagnosisText = diagnosisText.substring(0, 50) + '...';
+                    }
+                }
+                
+                item.innerHTML = `
+                    <div>
+                        <strong>${patient.name}</strong>
+                        <div style="font-size: 14px; color: #666; margin-top: 5px;">
+                            ${patient.dob ? 'DOB: ' + patient.dob : ''} ${patient.sex ? ' | ' + patient.sex : ''}
+                        </div>
+                        ${diagnosisText ? `<div style="font-size: 13px; color: #888; margin-top: 5px;">${diagnosisText}</div>` : ''}
+                    </div>
+                    <div>
+                        <span class="badge badge-blue">${patient.id}</span>
+                    </div>
+                `;
+                
+                container.appendChild(item);
+            });
+        }
+
+        // Load recent patients
+        function loadRecentPatients() {
+            const patients = JSON.parse(localStorage.getItem('patients') || '[]');
+            const container = document.getElementById('recentPatients');
+            
+            if (patients.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #666; padding: 30px;">No patients registered yet</p>';
+                return;
+            }
+            
+            // Sort by creation date (newest first)
+            const recentPatients = patients
+                .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+                .slice(0, 5); // Show only 5 most recent
+            
+            container.innerHTML = '';
+            
+            recentPatients.forEach(patient => {
+                const item = document.createElement('div');
+                item.className = 'patient-list-item';
+                item.onclick = () => showPatient(patient.id);
+                
+                let diagnosisText = '';
+                if (patient.diagnoses && patient.diagnoses.length > 0) {
+                    diagnosisText = patient.diagnoses[0].code || patient.diagnoses[0].description;
+                    if (diagnosisText.length > 30) {
+                        diagnosisText = diagnosisText.substring(0, 30) + '...';
+                    }
+                }
+                
+                item.innerHTML = `
+                    <div>
+                        <strong>${patient.name}</strong>
+                        <div style="font-size: 14px; color: #666; margin-top: 5px;">
+                            ${patient.dob ? 'DOB: ' + patient.dob : ''} ${patient.sex ? ' | ' + patient.sex : ''}
+                        </div>
+                        ${diagnosisText ? `<div style="font-size: 13px; color: #888; margin-top: 5px;">${diagnosisText}</div>` : ''}
+                    </div>
+                    <div>
+                        <span class="badge badge-blue">${patient.id}</span>
+                    </div>
+                `;
+                
+                container.appendChild(item);
+            });
+        }
+
+        // Export database
+        function exportDatabase() {
+            const patients = JSON.parse(localStorage.getItem('patients') || '[]');
+            
+            if (patients.length === 0) {
+                alert('No patient data to export');
+                return;
+            }
+            
+            const dataStr = JSON.stringify(patients, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `sbsch_patient_database_${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+            
+            alert(`Exported ${patients.length} patient records`);
+        }
+
+        // Close ICD results when clicking elsewhere
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('#icdSearch')) {
+                document.getElementById('icdResults').classList.add('hidden');
+            }
+        });
+    </script>
+
+</body></html>
